@@ -2,20 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+.bg-wallpaper{
+    background-image: url("../../public/ventura-wallpaper.webp");
+    background-position: center;
+    background-size: cover;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+#dock{
+    --scale: 1;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+#dock li{
+    /*font-size: calc(6rem * var(--scale));*/
+    position: relative;
+    scale: var(--scale);
+    top: calc((6rem * var(--scale) - 6rem) / 2 * -1);
+    transition: 150ms all ease-out;
 }
+
+[data-tooltip]:hover:after{
+    content: attr(data-tooltip);
+    transform: translate(-50%, -50%);
+    @apply absolute left-1/2 px-2 py-[3px] rounded-sm w-fit text-white text-[7px] bg-[rgb(41,36,35)] z-10 shadow-md outline-2 outline-black border-[0.5px] border-amber-50 border-opacity-15 flex justify-center items-center text-center text-nowrap -top-6 ;
+}
+
