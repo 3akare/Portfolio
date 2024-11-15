@@ -1,43 +1,40 @@
 "use client";
-import {useEffect } from "react";
+import {useContext, useEffect} from "react";
 
-import java from "@/../public/java.png"
-import spring from "@/../public/spring.png"
-import javascript from "@/../public/javascript.png"
-import python from "@/../public/python.png"
-import mongodb from "@/../public/mongoDB.png"
-import mysql from "@/../public/mysql.png"
-import nodejs from "@/../public/nodejs.png"
-import nextjs from "@/../public/nextjs.png"
-import firebase from "@/../public/firebase.png"
-import react from "@/../public/react.png"
-import tailwind from "@/../public/tailwindcss.png"
-import c from "@/../public/c.png"
+import intelliJ from "@/../public/intellij.png"
+import pycharm from "@/../public/pycharm.png"
+import webstorm from "@/../public/webstorm.png"
+import docker from "@/../public/docker.png"
+import vscode from "@/../public/vscode.png"
+import postman from "@/../public/postman.png"
+import github from "@/../public/github.png"
+import iterm from "@/../public/iterm.png"
+import {MenuContext} from "@/app/components/MenuProvider";
+import Image from "next/image";
+import Genie from "@/app/components/Genie";
 
 
 export default function Dock(){
     const array: object[] = [
-        { skill: "C", image: c.src},
-        { skill: "Java", image: java.src},
-        { skill: "Spring Boot", image: spring.src, color: "bg-[rgb(151,193,92)]"},
-        { skill: "Javascript", image: javascript.src, color: `bg-[rgb(249,214,73)]`},
-        { skill: "ReactJS", image: react.src},
-        { skill: "NextJS", image: nextjs.src},
-        { skill: "Python", image: python.src},
-        { skill: "NodeJS", image: nodejs.src},
-        { skill: "MongoDB", image: mongodb.src},
-        { skill: "MySQL", image: mysql.src},
-        { skill: "Firebase", image: firebase.src},
-        { skill: "TailwindCSS", image: tailwind.src, color: "bg-[rgb(16,23,41)]"},
+        { name: "IntelliJ IDEA Community Edition", image: intelliJ},
+        { name: "PyCharm Community", image: pycharm},
+        { name: "PyCharm Community", image: webstorm},
+        { name: "Docker Desktop", image: docker},
+        { name: "Visual Studio Code", image: vscode},
+        { name: "Postman", image: postman},
+        { name: "Github", image: github},
+        { name: "Iterm2", image: iterm},
     ]
 
+    const {updateMenuTitle} = useContext(MenuContext);
+
     useEffect(()=>{
-        document.querySelectorAll("#dock li").forEach( li => {
-            li.addEventListener('click', () => {
-                console.log(li.textContent)
+        document.querySelectorAll("#dock img").forEach( img => {
+            img.addEventListener('click', () => {
+                console.log(img.textContent)
             })
 
-            li.addEventListener("mousemove", (event) => {
+            img.addEventListener("mousemove", (event) => {
                 const item= event.target
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
@@ -51,7 +48,7 @@ export default function Dock(){
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
                 const next = item?.nextElementSibling
-                const scale = 0.8
+                const scale = 0.6
 
                 resetScale()
 
@@ -76,23 +73,31 @@ export default function Dock(){
         })
 
         function resetScale() {
-            document.querySelectorAll('#dock li').forEach(li => {
+            document.querySelectorAll('#dock img').forEach(img => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
-                li.style.setProperty("--scale", 1)
+                img.style.setProperty("--scale", 1)
             })
         }
     }, [])
 
-    return(
-        <div className={"fixed flex items-center justify-center backdrop-filter backdrop-blur-xl border-gray-100 border-opacity-20 border-[0.5px] bottom-0 my-11 rounded-3xl w-fit shadow-2xl left-1/2 -translate-x-1/2 translate-y-1/2 h-[4.5rem]"}>
-            <ul id="dock" className={"flex flex-row items-center gap-6 hover:gap-8 transition-[gap] justify-center px-6"}>
-                {array.map((item, index:number)=>{
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-expect-error
-                    return <li data-tooltip={item.skill} style={{'--image-url': `url(${item.image})`}} className={`w-14 h-14 ${item.color === undefined ? "bg-white" : item.color} rounded-md bg-contain  bg-no-repeat bg-center bg-[image:var(--image-url)] bg-origin-content p-1`} key={index}></li>
-                })}
-            </ul>
-        </div>
-    )
+    return (
+        <section>
+            <div
+                className={"fixed lg:flex min-w-4/5 hidden items-center justify-center backdrop-filter backdrop-blur-xl border-gray-100 border-opacity-20 border-[0.5px] bottom-0 my-11 rounded-3xl w-fit shadow-2xl left-1/2 -translate-x-1/2 translate-y-1/2 h-[4.5rem]"}>
+                <div id="dock"
+                    className={"flex flex-row items-center gap-6 hover:gap-8 transition-[gap] justify-center px-6 w-full"}>
+                    {array.map((item, index: number) => {
+                        return(
+                            <Image key={index} className={"w-14 h-14"} src={item.image} alt={item.name} width={70} height={70} onClick={() => updateMenuTitle(item.name)}/>
+                        )
+                    })}
+                </div>
+                {/*<Genie/>*/}
+            </div>
+            <div className="lg:hidden text-white font-bold text-xl p-2 fixed bottom-0 text-center left-1/2 my-11 -translate-x-1/2 translate-y-1/2  ">
+                View On A larger Screen to View the Iconic Dock
+            </div>
+        </section>
+)
 }

@@ -4,8 +4,15 @@ import {Wifi} from "@/app/icons/Wifi";
 import {Search} from "@/app/icons/Search";
 import {ControlCenter} from "@/app/icons/ControlCenter";
 import {Siri} from "@/app/icons/Siri";
+import {useContext} from "react";
+import {MenuContext} from "@/app/components/MenuProvider";
 
-export default function Navigation(){
+export default function MenuBar(){
+    const weeks = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    const date = new Date();
+
+    const {menuTitle} = useContext(MenuContext)
     return(
         <header>
             <nav
@@ -13,9 +20,9 @@ export default function Navigation(){
                 <section className={"flex flex-row gap-5 items-center text-sm font-medium"}>
                     <span className={"flex flex-row items-center gap-5"}>
                         <AppleLogo width={22} height={22}/>
-                        <p className={"font-bold"}>Finder</p>
+                        <p className={"font-bold"}>{menuTitle}</p>
                     </span>
-                    <ul className={"flex flex-row gap-5 items-center"}>
+                    <ul className={"flex-row gap-5 items-center hidden md:flex"}>
                         <li>File</li>
                         <li>Edit</li>
                         <li>View</li>
@@ -24,15 +31,15 @@ export default function Navigation(){
                         <li>Help</li>
                     </ul>
                 </section>
-                <ul className={"flex flex-row items-center gap-4 text-sm font-medium"}>
+                <ul className={"hidden md:flex flex-row items-center gap-4 text-sm font-medium"}>
                     <li><Battery width={24} height={24}/></li>
-                    <li><Wifi width={18} height={18}/></li>
+                    <li><Wifi width={24} height={24}/></li>
                     <li><Search width={18} height={18}/></li>
                     <li><ControlCenter width={18} height={18}/></li>
                     <li><Siri width={18} height={18}/></li>
                     <li className={"flex flex-row gap-4"}>
-                        <p>Sat 9 Nov</p>
-                        <p>12:28</p>
+                        <p>{weeks[date.getDay()]} {date.getDate()} {months[date.getMonth()]}</p>
+                        <p>{date.getHours()}:{date.getMinutes()}</p>
                     </li>
                 </ul>
             </nav>

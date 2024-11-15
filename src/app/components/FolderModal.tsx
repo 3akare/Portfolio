@@ -7,7 +7,7 @@ export default function FolderModal(
         showModal &&
         <section
             draggable={true}
-            className={"cursor-move absolute w-[1024px] rounded-2xl bg-[rgb(41,36,35)] h-[512px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 space-y-6 text-white resize overflow-auto min-h-[512px] min-w-[512px] max-w-[1500px] max-h-[900px]"}>
+            className={"cursor-move absolute w-fit rounded-2xl bg-[rgb(41,36,35)] h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 space-y-6 text-white resize overflow-auto min-w-96 min-h-[28rem]"}>
             <div className="h-10 bg-[#2c2c2c] rounded-t-xl flex items-center px-4">
                 <div className="flex gap-2">
                     <button
@@ -30,21 +30,22 @@ export default function FolderModal(
                 <div className="space-y-6">
                     <div>
                         <h4 className="font-medium">Core Platform Engineer at Remita</h4>
-                        <p className="text-sm text-gray-400">April - October, 2024 (Internship)</p>
+                        <p className="text-sm text-gray-400">April - October, 2024</p>
                         <p className="text-sm">Built scalable enterprise applications</p>
                     </div>
                     <div>
-                        <h4 className="font-medium">Full Stack Developer at Allcast</h4>
+                        <h4 className="font-medium">Frontend Engineer at Allcast</h4>
                         <p className="text-sm text-gray-400">March - June, 2024</p>
                         <p className="text-sm">Led development of company applications</p>
                     </div>
                 </div>
             </section>
             <section className={"px-6"}>
-                <h3 className="text-lg font-semibold mb-2">More</h3>
-                <div className={"flex flex-row gap-4"}>
-                    <a href={"./"} className="underline text-sm">Resume</a>
-                    <a href={"./"} className="underline text-sm">GitHub</a>
+                <h3 className="text-lg font-semibold mb-2">Tools and Technologies</h3>
+                <div className="flex flex-wrap gap-2">
+                    {['React', 'TypeScript', 'Node.js', 'Python', 'AWS', 'Docker'].map((skill) => (
+                        <span key={skill} className="bg-white/10 px-2 py-1 rounded text-sm">{skill}</span>
+                    ))}
                 </div>
             </section>
         </section>

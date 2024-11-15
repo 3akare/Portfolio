@@ -13,7 +13,7 @@
     --scale: 1;
 }
 
-#dock li{
+#dock img{
     /*font-size: calc(6rem * var(--scale));*/
     position: relative;
     scale: var(--scale);
@@ -21,9 +21,70 @@
     transition: 150ms all ease-out;
 }
 
-[data-tooltip]:hover:after{
-    content: attr(data-tooltip);
-    transform: translate(-50%, -50%);
-    @apply absolute left-1/2 px-2 py-[3px] rounded-sm w-fit text-white text-[7px] bg-[rgb(41,36,35)] z-10 shadow-md outline-2 outline-black border-[0.5px] border-amber-50 border-opacity-15 flex justify-center items-center text-center text-nowrap -top-6 ;
+
+html,
+body {
+    display: table;
+    width: 100%;
+    height: 100%;
+    background: #005C97; /* fallback for old browsers */
 }
 
+.main-ctr {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+#element {
+    fill: white;
+}
+
+#step-0,
+#step-1,
+#step-2,
+#step-3 {
+    opacity: 0;
+}
+
+#modal-with-genie-effect #close {
+    cursor: pointer;
+    position: relative;
+    transition: .3s all ease;
+    opacity: 1;
+}
+
+#modal-with-genie-effect #word {
+    transition: .3s all ease;
+    opacity: 1;
+    position: relative;
+}
+
+#modal-with-genie-effect {
+
+    &.active {
+        #close {
+            opacity: 0;
+            pointer-events: none;
+            transition: .3s all ease .15s;
+        }
+
+        #word {
+            opacity: 0;
+            transition: .3s all ease .3s;
+        }
+    }
+}
+
+#open-modal-ctr {
+    opacity: 0;
+    pointer-events: none;
+    cursor: pointer;
+    transition: .3s all ease;
+
+    &.active {
+        opacity: 1;
+        transition: .3s all ease .1s;
+        pointer-events: auto;
+    }
+}

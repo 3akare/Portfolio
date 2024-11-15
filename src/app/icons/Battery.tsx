@@ -1,7 +1,26 @@
-import {SVGProps} from "react";
+"use client";
+import {SVGProps, useEffect, useState} from "react";
 
 export function Battery(props: SVGProps<SVGSVGElement>) {
+    const [battery, setBattery] = useState(0);
+    useEffect(()=> {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        navigator.getBattery().then((battery: { level: number; addEventListener: (arg0: string, arg1: () => void) => void; }) => {
+            const batteryPercentage = battery.level * 100;
+            setBattery(batteryPercentage)
+            // Add event listener to update the percentage when it changes
+            battery.addEventListener('levelchange', () => {
+                setBattery(battery.level * 100)
+            })})
+    }, [])
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20" {...props}><path fill="currentColor" d="M13.5 5A2.5 2.5 0 0 1 16 7.5v.833l1.167.003a.833.833 0 0 1 .833.833v1.667a.833.833 0 0 1-.833.833L16 11.667v.833a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 2 12.5v-5A2.5 2.5 0 0 1 4.5 5zm.25.946H4.5c-.65 0-1.405.496-1.492 1.13L3 7.196v5.495c0 .647.492 1.18 1.122 1.244l.128.006h9.5a1.25 1.25 0 0 0 1.243-1.122l.007-.128V7.196a1.25 1.25 0 0 0-1.122-1.243zM4.834 6.949h1.33c.426 0 .778.318.83.73L7 7.784v4.327a.835.835 0 0 1-.73.829l-.105.006h-1.33a.835.835 0 0 1-.83-.73L4 12.11V7.784c0-.426.319-.777.73-.829zh1.33z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="bevel"
+             className="lucide lucide-battery" {...props}>
+            <rect width="16" height="10" x="2" y="7" rx="2" ry="2" fill={"transparent"}/>
+            <rect width={battery/100 * 16} height="10" x="2" y="7" rx="2" ry="2" fill="white"/>
+            <line x1="22" x2="22" y1="11" y2="13" strokeWidth="2"/>
+        </svg>
     )
 }
